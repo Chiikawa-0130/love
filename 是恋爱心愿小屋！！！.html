@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱的愿望清单 | 专属我们的礼物记录</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffd6e7 0%, #ffeff7 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #5a3e51;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(154, 78, 116, 0.2);
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            background: linear-gradient(to right, #ffb8d5, #ffd0e8);
+            border-radius: 15px 15px 0 0;
+            margin: -20px -20px 30px -20px;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #7a2c5e;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .header h1:after {
+            content: "❤️";
+            position: absolute;
+            right: -40px;
+            top: -10px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #8f4b74;
+        }
+        
+        .couple-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+        }
+        
+        .person {
+            text-align: center;
+            position: relative;
+            width: 130px;
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9ec6, #ffc2da);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 2.5rem;
+            color: white;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(154, 78, 116, 0.3);
+        }
+        
+        .person h3 {
+            background: #ffd0e8;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            color: #7a2c5e;
+        }
+        
+        .heart-icon {
+            position: absolute;
+            top: 40px;
+            right: -25px;
+            font-size: 2rem;
+            color: #ff6b9d;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .wish-form {
+            flex: 1;
+            min-width: 300px;
+            background: #fff9fc;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 2px solid #ffe5f2;
+        }
+        
+        .wish-form h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #e84393;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #8f4b74;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ffd0e8;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #ff9ec6;
+            box-shadow: 0 0 0 3px rgba(255, 158, 198, 0.3);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            background: linear-gradient(to right, #ff9ec6, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.6);
+        }
+        
+        .wish-list {
+            flex: 2;
+            min-width: 300px;
+            background: #fff9fc;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 2px solid #ffe5f2;
+        }
+        
+        .wish-list h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #e84393;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .wish-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .wish-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #ff9ec6;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .wish-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .wish-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .wish-person {
+            background: #ffeff7;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #e84393;
+        }
+        
+        .wish-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffeff7;
+            color: #e84393;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: #ffd0e8;
+            transform: scale(1.1);
+        }
+        
+        .wish-content {
+            margin-bottom: 15px;
+        }
+        
+        .wish-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #5a3e51;
+            margin-bottom: 8px;
+        }
+        
+        .wish-notes {
+            color: #8f4b74;
+            line-height: 1.5;
+        }
+        
+        .wish-date {
+            font-size: 0.85rem;
+            color: #b38aa4;
+            text-align: right;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #b38aa4;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffd0e8;
+        }
+        
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+        
+        .flowers {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.1;
+            font-size: 8rem;
+        }
+        
+        .flower-1 {
+            top: 50px;
+            left: 30px;
+            transform: rotate(-20deg);
+            color: #ff9ec6;
+        }
+        
+        .flower-2 {
+            bottom: 50px;
+            right: 30px;
+            transform: rotate(15deg);
+            color: #ff6b9d;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #b38aa4;
+            font-size: 0.9rem;
+            border-top: 1px solid #ffe5f2;
+            margin: 0 -20px -20px -20px;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.2); }
+            70% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .couple-container {
+                gap: 15px;
+            }
+            
+            .person {
+                width: 110px;
+            }
+            
+            .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .heart-icon {
+                top: 30px;
+                right: -20px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flowers flower-1">❀</div>
+        <div class="flowers flower-2">❁</div>
+        
+        <div class="header">
+            <h1>爱的愿望清单</h1>
+            <p>记录彼此的心愿与礼物，让爱意永不褪色</p>
+            
+            <div class="couple-container">
+                <div class="person">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>我</h3>
+                </div>
+                
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                
+                <div class="person">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>亲爱的</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="wish-form">
+                <h2><i class="fas fa-plus-circle"></i> 添加心愿</h2>
+                
+                <div class="form-group">
+                    <label for="wishFor"><i class="fas fa-heart"></i> 心愿对象</label>
+                    <select id="wishFor">
+                        <option value="me">我的心愿</option>
+                        <option value="partner">TA的心愿</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="wishTitle"><i class="fas fa-gift"></i> 心愿/礼物</label>
+                    <input type="text" id="wishTitle" placeholder="例如：一束玫瑰花、一次浪漫的晚餐...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="wishNotes"><i class="fas fa-sticky-note"></i> 备注</label>
+                    <textarea id="wishNotes" placeholder="添加更多细节，比如颜色、品牌、具体想法等..."></textarea>
+                </div>
+                
+                <button id="addWishBtn">
+                    <i class="fas fa-plus"></i> 添加到愿望清单
+                </button>
+            </div>
+            
+            <div class="wish-list">
+                <h2><i class="fas fa-list"></i> 愿望清单</h2>
+                
+                <div class="wish-container" id="wishContainer">
+                    <!-- 心愿列表将在这里动态生成 -->
+                    <div class="empty-state">
+                        <i class="fas fa-heart"></i>
+                        <p>还没有心愿记录，<br>添加你们的心愿吧！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>专属我们的爱情记忆 ❤️ 用心记录每一份爱的期待</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishForm = document.getElementById('addWishBtn');
+            const wishContainer = document.getElementById('wishContainer');
+            
+            // 从本地存储加载心愿
+            let wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+            
+            // 渲染心愿列表
+            function renderWishes() {
+                if (wishes.length === 0) {
+                    wishContainer.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-heart"></i>
+                            <p>还没有心愿记录，<br>添加你们的心愿吧！</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 按添加时间倒序排列
+                wishes.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                wishContainer.innerHTML = '';
+                
+                wishes.forEach((wish, index) => {
+                    const wishElement = document.createElement('div');
+                    wishElement.className = 'wish-item';
+                    wishElement.innerHTML = `
+                        <div class="wish-header">
+                            <div class="wish-person">
+                                ${wish.for === 'me' ? '我的心愿' : 'TA的心愿'}
+                            </div>
+                            <div class="wish-actions">
+                                <button class="action-btn edit-btn" data-index="${index}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete-btn" data-index="${index}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="wish-content">
+                            <div class="wish-title">${wish.title}</div>
+                            ${wish.notes ? `<div class="wish-notes">${wish.notes}</div>` : ''}
+                        </div>
+                        <div class="wish-date">
+                            ${formatDate(wish.date)}
+                        </div>
+                    `;
+                    wishContainer.appendChild(wishElement);
+                });
+                
+                // 添加删除事件
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        deleteWish(index);
+                    });
+                });
+                
+                // 添加编辑事件
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        editWish(index);
+                    });
+                });
+            }
+            
+            // 格式化日期
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+            }
+            
+            // 添加心愿
+            wishForm.addEventListener('click', function() {
+                const wishFor = document.getElementById('wishFor').value;
+                const wishTitle = document.getElementById('wishTitle').value.trim();
+                const wishNotes = document.getElementById('wishNotes').value.trim();
+                
+                if (!wishTitle) {
+                    alert('请输入心愿/礼物内容');
+                    return;
+                }
+                
+                const newWish = {
+                    for: wishFor,
+                    title: wishTitle,
+                    notes: wishNotes,
+                    date: new Date().toISOString()
+                };
+                
+                wishes.push(newWish);
+                saveWishes();
+                renderWishes();
+                
+                // 重置表单
+                document.getElementById('wishTitle').value = '';
+                document.getElementById('wishNotes').value = '';
+            });
+            
+            // 删除心愿
+            function deleteWish(index) {
+                if (confirm('确定要删除这个心愿吗？')) {
+                    wishes.splice(index, 1);
+                    saveWishes();
+                    renderWishes();
+                }
+            }
+            
+            // 编辑心愿
+            function editWish(index) {
+                const wish = wishes[index];
+                
+                // 填充表单
+                document.getElementById('wishFor').value = wish.for;
+                document.getElementById('wishTitle').value = wish.title;
+                document.getElementById('wishNotes').value = wish.notes || '';
+                
+                // 删除旧心愿
+                wishes.splice(index, 1);
+                saveWishes();
+                renderWishes();
+            }
+            
+            // 保存到本地存储
+            function saveWishes() {
+                localStorage.setItem('wishes', JSON.stringify(wishes));
+            }
+            
+            // 初始渲染
+            renderWishes();
+        });
+    </script>
+</body>
+</html>
